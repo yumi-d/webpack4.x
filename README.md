@@ -26,4 +26,20 @@
     
     本质上，webpack 是一个现代 JavaScript 应用程序的静态模块打包器(module bundler)。当 webpack 处理应用程序时，它会递归地构建一个依赖关系图(dependency graph)，其中包含应用程序需要的每个模块，然后将所有这些模块打包成一个或多个 bundle。
     
+### 安装
+首先初始化项目:
+      
+      npm init
+然后根据提示安装就好了（全部敲回车就是默认安装）。</br>
+然后安装webpack:
 
+      //安装到你当前的项目中
+      npm install --save-dev webpack
+      // 因为是4.x版本，所以还要安装 CLI
+      npm install --save-dev webpack-cli  
+推荐使用 `npm install --save-dev webpack` 安装，如果你有多个项目的话，可能会有多个webpack版本，全局安装webpack可能会影响其他项目。</br>
+
+      
+      
+      
+      
