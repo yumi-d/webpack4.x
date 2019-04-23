@@ -13,7 +13,17 @@
 ### 概念
 首先开局一张图~
 ![](https://github.com/yumi41/webpack4.x/blob/master/images/webpack_logo.jpg)
-就是把左边的资源、脚本、图片、样式表打包成右边我们需要的静态资源，而不用关心中间一些复杂的操作
+就是把左边的资源、脚本、图片、样式表打包成右边我们需要的静态资源，而不用关心中间一些复杂的操作。
+</br>
+比如:
 
-
+    * 代码分割、去除多余模块。
+    * 代码、图片压缩。
+    * Scss，less等CSS预处理器
+    * ...
+    
+好了，来看看官方的描述:</br>
+    
+    本质上，webpack 是一个现代 JavaScript 应用程序的静态模块打包器(module bundler)。当 webpack 处理应用程序时，它会递归地构建一个依赖关系图(dependency graph)，其中包含应用程序需要的每个模块，然后将所有这些模块打包成一个或多个 bundle。
+    
 
