@@ -49,6 +49,7 @@
 ```
 当然也可以指定webpack要读取的配置文件，比如: `webpack --config webpack.config2.js` 。</br>
 现在依次创建 `index.html` `index.js` `webpack.config.js`
+
 index.html
 ```
 <!doctype html>
@@ -84,6 +85,7 @@ module.exports = {
 };
 ```
 现在的目录结构如下:
+
 ![](https://github.com/yumi41/webpack4.x/blob/master/images/input_output.jpg)
 
       
