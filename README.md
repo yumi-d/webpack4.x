@@ -49,6 +49,7 @@
 ```
 当然也可以指定webpack要读取的配置文件，比如: `webpack --config webpack.config2.js` 。</br>
 现在依次创建 `index.html` `index.js` `webpack.config.js`
+index.html
 ```
 <!doctype html>
 <html>
@@ -61,18 +62,17 @@
   </body>
 </html>
 ```
+index.js
 ```
 function component() {
   var element = document.createElement('div');
-
   // Lodash（目前通过一个 script 脚本引入）对于执行这一行是必需的
   element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-
   return element;
 }
-
 document.body.appendChild(component());
 ```
+webpack.config.js
 ```
 const path = require('path');
 module.exports = {
@@ -83,7 +83,7 @@ module.exports = {
   }
 };
 ```
-目录结构如下:
+现在的目录结构如下:
+![](https://github.com/yumi41/webpack4.x/blob/master/images/input_output.jpg)
 
-      
       
