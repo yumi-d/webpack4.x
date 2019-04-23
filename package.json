@@ -1,0 +1,24 @@
+{
+  "name": "webpack4.x",
+  "version": "1.0.0",
+  "description": "webpack4.x详细配置(React配置)",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yumi41/webpack4.x.git"
+  },
+  "author": "dyl",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yumi41/webpack4.x/issues"
+  },
+  "homepage": "https://github.com/yumi41/webpack4.x#readme",
+  "devDependencies": {
+    "webpack": "^4.30.0",
+    "webpack-cli": "^3.3.1"
+  }
+}
