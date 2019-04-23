@@ -11,10 +11,9 @@
 
 
 ### 概念
-首先开局一张图
+首先开局一张图~
 ![](https://github.com/yumi41/webpack4.x/blob/master/images/webpack_logo.jpg)
-
-打包所有资源、脚本、图片、样式
+就是把左边的资源、脚本、图片、样式表打包成右边我们需要的静态资源，而不用关心中间一些复杂的操作
 
 
 
