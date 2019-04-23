@@ -48,7 +48,17 @@
   },
 ```
 当然也可以指定webpack要读取的配置文件，比如: `webpack --config webpack.config2.js` 。
-现在我们在根目录创建 `webpack.config.js` 文件
+</br>现在我们在根目录创建 `webpack.config.js` 文件，内容如下:
+```
+const path = require('path');
+module.exports = {
+  entry: './src/index.js',
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist')
+  }
+};
+```
       
       
       
