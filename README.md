@@ -3,8 +3,8 @@
 * [前言](#前言)
 * [概念](#概念)
 * [安装](#安装)
-* [入口](#标题)
-* [出口](#文本)
+* [入口和出口](#入口和出口)
+* [出口](#出口)
 
 ### 前言
 从webpack1.x用到webpack4.x，却从来没有去系统的总结一下详细配置，所有就写个文章总结一下，也给初学者一个引导。本文所有内容均来自[webpack官网](https://www.webpackjs.com/)
@@ -39,7 +39,16 @@
       npm install --save-dev webpack-cli  
 推荐使用 `npm install --save-dev webpack` 安装，如果你有多个项目的话，可能会有多个webpack版本，全局安装webpack可能会影响其他项目。</br>
 
-      
+### 入口和出口
+现在在 `package.json` 中添加 `"build": "webpack"`
+```
+  "scripts": {
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+```
+当然也可以指定webpack要读取的配置文件，比如: `webpack --config webpack.config2.js` 。
+现在我们在根目录创建 `webpack.config.js` 文件
       
       
       
