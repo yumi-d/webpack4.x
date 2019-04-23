@@ -47,8 +47,32 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
 ```
-当然也可以指定webpack要读取的配置文件，比如: `webpack --config webpack.config2.js` 。
-</br>现在我们在根目录创建 `webpack.config.js` 文件，内容如下:
+当然也可以指定webpack要读取的配置文件，比如: `webpack --config webpack.config2.js` 。</br>
+现在依次创建 `index.html` `index.js` `webpack.config.js`
+```
+<!doctype html>
+<html>
+  <head>
+    <title>起步</title>
+    <script src="https://unpkg.com/lodash@4.16.6"></script>
+  </head>
+  <body>
+    <script src="./src/index.js"></script>
+  </body>
+</html>
+```
+```
+function component() {
+  var element = document.createElement('div');
+
+  // Lodash（目前通过一个 script 脚本引入）对于执行这一行是必需的
+  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+
+  return element;
+}
+
+document.body.appendChild(component());
+```
 ```
 const path = require('path');
 module.exports = {
@@ -59,6 +83,7 @@ module.exports = {
   }
 };
 ```
-      
+目录结构如下:
+
       
       
