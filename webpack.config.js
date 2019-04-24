@@ -1,11 +1,23 @@
 const path = require('path');
-
 module.exports = {
-  entry: './src/index.js',
-  output: {
-    filename: 'main.js',    // 打包后文件的名字
-    path: path.resolve(__dirname, 'dist'),  // 打包后的文件夹
-  }
+    // mode: 'development',        // "production" | "development" | "none"
+    // 单个入口写法     
+    entry: {
+        main: './src/index.js'
+    },
+    // entry: './src/index.js', // 这是单入口的简写
+    // entry: {  // 这是多入口写法,每个键(key)会是 chunk 的名称，该值描述了 chunk 的入口起点。
+    //     pageOne: './src/pageOne/index.js',
+    //     pageTwo: './src/pageTwo/index.js',
+    //     pageThree: './src/pageThree/index.js'
+    // },
+    // 输出
+    output: {
+        // 决定了每个输出 bundle 的名称。这些 bundle 将写入到 output.path 选项指定的目录下。
+        // 也可以使用入口名称（[name].bundle.js）、内部 chunk id（[id].bundle.js）等命名
+        filename: 'main.js',    // 打包后文件的名字
+        path: path.resolve(__dirname, 'dist'),  // 目标输出目录的绝对路径。
+    }
 };
 
 
