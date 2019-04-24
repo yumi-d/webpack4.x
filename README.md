@@ -12,7 +12,7 @@
 
 ### 概念
 首先开局一张图~
-![](https://github.com/yumi41/webpack4.x/blob/master/images/webpack_logo.jpg)
+![](https://github.com/yumi41/webpack4.x/blob/dev/images/webpack_logo.jpg)
 意思就是把左边的资源、脚本、图片、样式表打包成右边我们需要的静态资源，而不用关心中间一些复杂的操作。
 </br>
 比如:
@@ -86,6 +86,6 @@ module.exports = {
 ```
 现在的目录结构如下:
 
-![](https://github.com/yumi41/webpack4.x/blob/master/images/input_output.jpg)
+![](https://github.com/yumi41/webpack4.x/blob/dev/images/input_output.jpg)
 
       
