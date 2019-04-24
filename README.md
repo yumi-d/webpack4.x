@@ -3,8 +3,8 @@
 * [前言](#前言)
 * [概念](#概念)
 * [安装](#安装)
-* [入口和出口](#入口和出口)
-* [出口](#出口)
+* [输入和输出](#输入和输出)
+
 
 ### 前言
 从webpack1.x用到webpack4.x，却从来没有去系统的总结一下详细配置，所有就写个文章总结一下，也给初学者一个引导。本文所有内容均来自[webpack官网](https://www.webpackjs.com/)
@@ -39,7 +39,7 @@
       npm install --save-dev webpack-cli  
 推荐使用 `npm install --save-dev webpack` 安装，如果你有多个项目的话，可能会有多个webpack版本，全局安装webpack可能会影响其他项目。</br>
 
-### 入口和出口
+### 输入和输出
 现在在 `package.json` 中添加 `"build": "webpack"`
 ```
   "scripts": {
@@ -90,7 +90,7 @@ module.exports = {
     }
 };
 ```
-输出中的 `filename` 先写死，还有 `chunkFilename` `publicPath` 后面再讲。</br>
+本地开发输出中的 `filename` 可以写死，长效缓存时再使用其他值。还有比较重要的 `chunkFilename` `publicPath` 后面再讲。</br>
 现在的目录结构如下:
 
 ![](https://github.com/yumi41/webpack4.x/blob/dev/images/input_output.jpg)</br>
