@@ -4,6 +4,7 @@
 * [概念](#概念)
 * [安装](#安装)
 * [输入和输出](#输入和输出)
+* [loader](#loader)
 
 
 ### 前言
@@ -110,5 +111,44 @@ module.exports = {
         main: './src/index.js'
     },
 ```
+打开index.html就可以看到效果了（注意打包后的文件在index.html中的引入路径）
+      
+### loader
+现在我们来引入React，先执行命令：
 
+      npm install --save react react-dom
+
+index.js文件替换为:
+```
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+ReactDOM.render(
+  <h1>Hello, world!</h1>,
+  document.getElementById('app')
+);
+```
+相当于把 `<h1>Hello, world!</h1>` 渲染到app节点上去，所以index.html要新增 `<div id="app"></div>`
+```
+<!doctype html>
+<html>
+  <head>
+    <title>起步</title>
+    <script src="https://unpkg.com/lodash@4.16.6"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script src="./dist/main.js"></script>
+  </body>
+</html>
+```
+执行 `npm run build` 会发现报错:
+
+![](https://github.com/yumi41/webpack4.x/blob/dev/images/loader.jpg)</br>
+
+错误说明在入口文件中，需要loader来处理文件类型，这时就要请出我们的 `babel` 了。</br>
+
+      
+      
+      
       
