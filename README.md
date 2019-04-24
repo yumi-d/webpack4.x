@@ -13,7 +13,7 @@
 ### 概念
 首先开局一张图~
 ![](https://github.com/yumi41/webpack4.x/blob/master/images/webpack_logo.jpg)
-就是把左边的资源、脚本、图片、样式表打包成右边我们需要的静态资源，而不用关心中间一些复杂的操作。
+意思就是把左边的资源、脚本、图片、样式表打包成右边我们需要的静态资源，而不用关心中间一些复杂的操作。
 </br>
 比如:
 
@@ -59,7 +59,7 @@ index.html
     <script src="https://unpkg.com/lodash@4.16.6"></script>
   </head>
   <body>
-    <script src="./src/index.js"></script>
+    <script src="./dist/main.js"></script>
   </body>
 </html>
 ```
@@ -79,7 +79,7 @@ const path = require('path');
 module.exports = {
   entry: './src/index.js',
   output: {
-    filename: 'bundle.js',
+    filename: 'main.js',
     path: path.resolve(__dirname, 'dist')
   }
 };
