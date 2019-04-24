@@ -4,7 +4,8 @@
 * [概念](#概念)
 * [安装](#安装)
 * [输入和输出](#输入和输出)
-* [loader](#loader)
+* [babel简介](#babel简介)
+* [module](#module)
 
 
 ### 前言
@@ -113,7 +114,7 @@ module.exports = {
 ```
 打开index.html就可以看到效果了（注意打包后的文件在index.html中的引入路径）
       
-### loader
+### babel简介
 现在我们来引入React，先执行命令：
 
       npm install --save react react-dom
@@ -147,8 +148,100 @@ ReactDOM.render(
 ![](https://github.com/yumi41/webpack4.x/blob/dev/images/loader.jpg)</br>
 
 错误说明在入口文件中，需要loader来处理文件类型，这时就要请出我们的 `babel` 了。</br>
+引用 [babel](https://www.babeljs.cn/) 官网的话：
 
-      
-      
+      Babel 是一个 JavaScript 编译器
+这是因为新语法不能够马上被现在的浏览器全部支持，所以要用 `babel` 把我们所写的代码转换成浏览器所能识别的代码，比如:
+
+      * react语法
+      * ES6/7/8
+      * 处于提案的语法
+      * ...
+在 `babel7.x` 之前要在根目录下引入配置文件: `.babelrc`，`7.x` 后可以在项目的根目录下创建一个名为 `babel.config.js` 的文件，推荐使用后者。
+
+现在安装我们所需要的模块:
+
+      npm install --save-dev @babel/core  @babel/preset-env @babel/preset-react
+
+大概作用就是:
+
+      @babel/core:核心包，某些代码需要调用Babel的API进行转码
+      @babel/preset-env:转码规则，在此之前是要安装babel-preset-es20XX的，经常会变。现在 `@babel/preset-env` 会自动匹配最新的环境
+      @@babel/preset-react:react转码规则
+
+配置如下:
+```
+module.exports = function (api) {
+    api.cache(true);
+    const presets = [
+        "@babel/preset-react",
+        ["@babel/preset-env"],
+    ];
+    const plugins = [];
+    return {
+        presets,
+        plugins
+    };
+};
+```
+更多模块可以参考 [babel指南](https://www.babeljs.cn/docs/usage)。</br>
+更多详细信息可以参考 [阮一峰](http://www.ruanyifeng.com/blog/2016/01/babel.html)（虽然已经过时了，但是可以更好的理解现在的配置）。
+
+### module
+经过 `babel` 环境配置后，我们还需要引入 `babel-loader` 来解析我们的模块，
+
+      npm install babel-loader --save-dev
+
+再配置 `webpack.config.js` :
+
+```
+module: {
+        rules: [
+            {
+              test: /\.js$/,             // 匹配文件规则
+              exclude: /(node_modules)/, // 排除要匹配的文件夹，提高构建速度
+              use: {
+                loader: 'babel-loader',
+                options: {   // 没有 babel.config.js 文件，在这里也可以进行环境配置
+                    cacheDirectory: true,               // 开启缓存 提高构建速度
+                    // presets: ['@babel/preset-env'],
+                    // plugins:[]
+                }
+              }
+            }
+          ]
+    },
+
+```
+这个时候执行打包命令就可以成功了。</br>
+
+好了，现在让我们来扩大先有的项目，并且用更方便的ES6语法。
+首先在src目录下创建page文件夹，并且创建 `Home.js` 文件：
+
+```
+import React from 'react';
+class Home extends React.Component {
+    render(){
+        return (
+            <div>Hello, world!!!</div>
+        )
+    }
+}
+export default Home;
+```
+修改 `src/index.js` :
+
+```diff
+import React from 'react';
+import ReactDOM from 'react-dom';
++ import Home from './page/Home'
+
+ReactDOM.render(
+  <Home/>,
+  document.getElementById('app')
+);
+```
+
+
       
       
