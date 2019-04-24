@@ -77,13 +77,20 @@ webpack.config.js
 ```
 const path = require('path');
 module.exports = {
-  entry: './src/index.js',
-  output: {
-    filename: 'main.js',
-    path: path.resolve(__dirname, 'dist')
-  }
+    // 输入   
+    entry: {
+        main: './src/index.js'
+    },
+    // 输出
+    output: {
+        // 决定了每个输出 bundle 的名称。这些 bundle 将写入到 output.path 选项指定的目录下。
+        // 也可以使用入口名称（[name].bundle.js）、内部 chunk id（[id].bundle.js）等命名
+        filename: 'main.js',    // 打包后文件的名字
+        path: path.resolve(__dirname, 'dist'),  // 目标输出目录的绝对路径。
+    }
 };
 ```
+输出中的 `filename` 先写死，还有 `chunkFilename` `publicPath` 后面再讲。</br>
 现在的目录结构如下:
 
 ![](https://github.com/yumi41/webpack4.x/blob/dev/images/input_output.jpg)</br>
@@ -93,17 +100,15 @@ module.exports = {
 
 会看到如下打包信息:
 ![](https://github.com/yumi41/webpack4.x/blob/dev/images/build.jpg)</br>
-从图片来看出来有一个警告，需要我们设置 `mode` ，本地开发设置为 `development` ，后面再具体说明。然后再打包就不会有警告了
+从图片来看出来有一个警告，需要我们设置 `mode` ，本地开发设置为 `development` ，后面再具体说明。设置后再打包就不会有警告了，部分配置如下:
 ```
 const path = require('path');
 module.exports = {
     mode: 'development',        // "production" | "development" | "none"
-    entry: './src/index.js',
-    output: {
-        filename: 'main.js',    // 打包后文件的
-        path: path.resolve(__dirname, 'dist'),  // 打包后的文件夹
-    }
-};
+    // 输入     
+    entry: {
+        main: './src/index.js'
+    },
 ```
 
       
