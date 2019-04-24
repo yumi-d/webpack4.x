@@ -106,7 +106,7 @@ module.exports = {
 ```diff
 const path = require('path');
 module.exports = {
-    + mode: 'development',        // "production" | "development" | "none"
++   mode: 'development',        // "production" | "development" | "none"
     // 输入     
     entry: {
         main: './src/index.js'
@@ -130,6 +130,7 @@ ReactDOM.render(
 );
 ```
 相当于把 `<h1>Hello, world!</h1>` 渲染到app节点上去，所以index.html要新增 `<div id="app"></div>`
+
 ```diff
 <!doctype html>
 <html>
@@ -138,7 +139,7 @@ ReactDOM.render(
     <script src="https://unpkg.com/lodash@4.16.6"></script>
   </head>
   <body>
-    + <div id="app"></div>
++   <div id="app"></div>
     <script src="./dist/main.js"></script>
   </body>
 </html>
@@ -241,7 +242,60 @@ ReactDOM.render(
   document.getElementById('app')
 );
 ```
+此时的文件目录文:
 
+![](https://github.com/yumi41/webpack4.x/blob/dev/images/Home.js.jpg)</br>
+
+再次打包发现不会报错。好，ES6的class是用上了，现在我想用class的 `static` :
+
+```diff
+import React from 'react';
+class Home extends React.Component {
++   static data = 1;
+    render(){
+        return (
+            <div>Hello, world!!!</div>
+        )
+    }
+}
+export default Home;
+
+```
+再次打包发现报错:
+
+![](https://github.com/yumi41/webpack4.x/blob/dev/images/class_static.jpg)</br>
+
+看错误是 `class` 不支持 `static` 这个属性，没关系，我们让它支持:
+
+      npm install @babel/plugin-syntax-dynamic-import @babel/plugin-syntax-import-meta @babel/plugin-proposal-class-properties @babel/plugin-proposal-json-strings --save-dev
+
+如果只是支持 `static` 的话 可以只安装 `@babel/plugin-proposal-class-properties` 就可以了，然后要配置 `babel.config.js` :
+
+```diff
+module.exports = function (api) {
+    api.cache(true);
+    const presets = [
+        "@babel/preset-react",
+        ["@babel/preset-env"],  
+    ];
++    // es7不同阶段语法提案的转码规则模块（共有4个阶段），分别是stage-0，stage-1，stage-2，stage-3。
++    // babel 7 以后删除了 stage-0，stage-1，stage-2，stage-3，改用plugins，以下兼容老版本stage-3
++    const stage_3 = [
++        "@babel/plugin-syntax-dynamic-import",
++        "@babel/plugin-syntax-import-meta",
++        ["@babel/plugin-proposal-class-properties", {"loose": false}], 
++        "@babel/plugin-proposal-json-strings",
++    ];
+    const plugins = [
++        ...stage_3,
++       "@babel/plugin-transform-runtime", // 支持 async await （还需要 npm install --save @babel/runtime）
+    ];
+    return {
+        presets,
+        plugins 
+    };
+};
+```
 
       
       
