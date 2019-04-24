@@ -86,6 +86,24 @@ module.exports = {
 ```
 现在的目录结构如下:
 
-![](https://github.com/yumi41/webpack4.x/blob/dev/images/input_output.jpg)
+![](https://github.com/yumi41/webpack4.x/blob/dev/images/input_output.jpg)</br>
+然后执行打包命令
+
+      npm run build
+
+会看到如下打包信息:
+![](https://github.com/yumi41/webpack4.x/blob/dev/images/build.jpg)</br>
+从图片来看出来有一个警告，需要我们设置 `mode` ，本地开发设置为 `development` ，后面再具体说明。然后再打包就不会有警告了
+```
+const path = require('path');
+module.exports = {
+    mode: 'development',        // "production" | "development" | "none"
+    entry: './src/index.js',
+    output: {
+        filename: 'main.js',    // 打包后文件的
+        path: path.resolve(__dirname, 'dist'),  // 打包后的文件夹
+    }
+};
+```
 
       
