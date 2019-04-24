@@ -103,10 +103,10 @@ module.exports = {
 会看到如下打包信息:
 ![](https://github.com/yumi41/webpack4.x/blob/dev/images/build.jpg)</br>
 从图片来看出来有一个警告，需要我们设置 `mode` ，本地开发设置为 `development` ，后面再具体说明。设置后再打包就不会有警告了，部分配置如下:
-```
+```diff
 const path = require('path');
 module.exports = {
-    mode: 'development',        // "production" | "development" | "none"
+    + mode: 'development',        // "production" | "development" | "none"
     // 输入     
     entry: {
         main: './src/index.js'
@@ -130,7 +130,7 @@ ReactDOM.render(
 );
 ```
 相当于把 `<h1>Hello, world!</h1>` 渲染到app节点上去，所以index.html要新增 `<div id="app"></div>`
-```
+```diff
 <!doctype html>
 <html>
   <head>
@@ -138,7 +138,7 @@ ReactDOM.render(
     <script src="https://unpkg.com/lodash@4.16.6"></script>
   </head>
   <body>
-    <div id="app"></div>
+    + <div id="app"></div>
     <script src="./dist/main.js"></script>
   </body>
 </html>
