@@ -115,6 +115,75 @@ module.exports = {
 打开index.html就可以看到效果了。
       
 ### babel简介
+Babel 是一个 JavaScript 编译器，主要用于将 ECMAScript 2015+ 版本的代码转换为向后兼容的 JavaScript 语法，以便能够运行在当前和旧版本的浏览器或其他环境中。大概的作用就是:
+      
+      * 语法转换
+      * 通过 Polyfill 方式在目标环境中添加缺失的特性，比如：promise
+      * 源码转换
+      
+现在让我们来安装基本的模块:
+
+      npm install --save-dev @babel/core @babel/preset-env @babel/preset-react
+      
+大概解释如下:
+
+      * @babel/core: 核心包，某些代码需要调用Babel的API进行转码
+      * @babel/preset-react: react转码规则
+      * @babel/preset-env: 支持不同版本的ECMAScript规范,在此之前是要安装babel-preset-es20XX。现在 @babel/preset-env 会自动匹配最新的环境
+
+安装后我们需要在配置文件中进行配置，Babel 配置文件有两种方式， `.babelrc` 和 `babel.config.js`，其中 `babel.config.js` 是 `babel7.x` 后才支持的，在此我们选择 `babel.config.js`。在项目的根目录下创建一个名为 `babel.config.js` 的文件，并输入如下内容:
+```
+module.exports = function (api) {
+    api.cache(true);
+    const presets = [
+        "@babel/preset-react",
+        ["@babel/preset-env"],
+    ];
+    const plugins = [];
+    return {
+        presets,
+        plugins
+    };
+};
+```
+如果我想使用处于提案中不同阶段的语法（共有4个阶段）。</br>
+在 `babel7.x` 之前(选择一个安装):
+      
+      npm install --save-dev babel-preset-stage-0
+      npm install --save-dev babel-preset-stage-1
+      npm install --save-dev babel-preset-stage-2
+      npm install --save-dev babel-preset-stage-3
+      
+不稳定性和包涵关系: stage-0 > stage-1 > stage-2 > stage-3。由于提案是不断变化的，所以 `babel7.x` 后移除了 `babel-preset-stage-X` ，改为引入plugins， ![babel7升级不完全指南](https://github.com/chenxiaochun/blog/issues/61)。</br>
+
+我们选择最稳定的 `stage-3` ：
+
+      npm install --save-dev @babel/plugin-syntax-dynamic-import @babel/plugin-syntax-import-meta @babel/plugin-proposal-class-properties @babel/plugin-proposal-json-strings
+
+当然想用哪个就引入哪个，除此之外还有 ![其他](https://github.com/babel/babel/tree/master/packages) 的插件可以引用。接着上面的安装进行配置:
+```diff
+module.exports = function (api) {
+    api.cache(true);
+    const presets = [
+        "@babel/preset-react",
+        ["@babel/preset-env"],  
+    ];
++    // es7不同阶段语法提案的转码规则模块（共有4个阶段），分别是stage-0，stage-1，stage-2，stage-3。
++    // babel 7 以后删除了 stage-0，stage-1，stage-2，stage-3，改用plugins，以下兼容老版本stage-3
+     const plugins = [
++        "@babel/plugin-syntax-dynamic-import",
++        "@babel/plugin-syntax-import-meta",
++        ["@babel/plugin-proposal-class-properties", {"loose": false}], 
++        "@babel/plugin-proposal-json-strings",
+    ];
+    return {
+        presets,
+        plugins 
+    };
+};
+```
+至此，环境准备的差不多了，下面我们来引入React。
+
 现在我们来引入React，先执行命令：
 
       npm install --save react react-dom
