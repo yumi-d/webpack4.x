@@ -183,23 +183,37 @@ module.exports = function (api) {
 };
 ```
 此时的目录结构为:
+
 ![](https://github.com/yumi41/webpack4.x/blob/dev/images/babel.config.jpg)
 
 至此，环境准备的差不多了，下面我们来引入React:
 
       npm install --save react react-dom
-
-index.js文件替换为:
+      
+然后在 `src` 创建新文件夹 `page`， 然后在 `page` 中创建 `Home.jsx` 文件，内容如下:
+```
+import React from 'react';
+class Home extends React.Component {
+    render(){
+        return (
+            <div>Hello, world!!!</div>
+        )
+    }
+}
+export default Home;
+```
+然后 `index.js` 文件替换为:
 ```
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Home from './page/Home'
 
 ReactDOM.render(
-  <h1>Hello, world!</h1>,
+  <Home/>,
   document.getElementById('app')
 );
 ```
-相当于把 `<h1>Hello, world!</h1>` 渲染到app节点上去，所以index.html要新增 `<div id="app"></div>`
+在 `index.js` 中可以看到，React会把 `<Home/>` 渲染到app节点上去，所以index.html要新增 `<div id="app"></div>`
 
 ```diff
 <!doctype html>
@@ -214,6 +228,10 @@ ReactDOM.render(
   </body>
 </html>
 ```
+此时的文件结构:
+
+![](https://github.com/yumi41/webpack4.x/blob/dev/images/add_react.jpg)</br>
+
 执行 `npm run build` 会发现报错:
 
 ![](https://github.com/yumi41/webpack4.x/blob/dev/images/loader.jpg)</br>
