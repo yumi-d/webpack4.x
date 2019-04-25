@@ -50,7 +50,7 @@
   },
 ```
 当然也可以指定webpack要读取的配置文件，比如: `webpack --config webpack.config2.js` 。</br>
-现在依次创建 `index.html` `index.js` `webpack.config.js`
+现在依次创建 `index.html` ， `index.js` ， `webpack.config.js`
 
 index.html
 ```
@@ -92,7 +92,7 @@ module.exports = {
     }
 };
 ```
-本地开发输出中的 `filename` 可以写死，长效缓存时再使用其他值。还有比较重要的 `chunkFilename` `publicPath` 后面再讲。</br>
+本地开发输出中的 `filename` 可以成固定值，长效缓存时再使用其他值。还有比较重要的 `chunkFilename` `publicPath` 后面再介绍。</br>
 现在的目录结构如下:
 
 ![](https://github.com/yumi41/webpack4.x/blob/dev/images/input_output.jpg)</br>
@@ -102,17 +102,17 @@ module.exports = {
 
 会看到如下打包信息:
 ![](https://github.com/yumi41/webpack4.x/blob/dev/images/build.jpg)</br>
-从图片来看出来有一个警告，需要我们设置 `mode` ，本地开发设置为 `development` ，后面再具体说明。设置后再打包就不会有警告了，部分配置如下:
+从图片来看出来有一个警告，需要我们设置 `mode` ，本地开发设置为 `development` 设置后再打包就不会有警告了，部分配置如下:
 ```diff
 const path = require('path');
 module.exports = {
-+   mode: 'development',        // "production" | "development" | "none"
++   mode: 'development',  // "production" | "development" | "none"
     // 输入     
     entry: {
         main: './src/index.js'
     },
 ```
-打开index.html就可以看到效果了（注意打包后的文件在index.html中的引入路径）
+打开index.html就可以看到效果了。
       
 ### babel简介
 现在我们来引入React，先执行命令：
@@ -296,6 +296,13 @@ module.exports = function (api) {
     };
 };
 ```
+
+顺便也把 `async await` 的插件也装上了，真的是想用啥就装啥。其实以前只装一个 `stage-X` 就好了，网上找资料发现:
+
+      1、`stage-X` 并不知道里面有什么，改用插件一目了然。
+      2、`stage-X` 里的规则进入到规范里面，则整个 stage-X 都会有变动。
+      
+好了，说了这么多题外话，还是回到模块上来吧，
 
       
       
