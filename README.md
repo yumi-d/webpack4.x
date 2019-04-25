@@ -236,10 +236,26 @@ ReactDOM.render(
 
 ![](https://github.com/yumi41/webpack4.x/blob/dev/images/loader.jpg)</br>
 
-看错误是需要 `loader` 来处理 `<Home/>` 类型的文件。
+看错误是需要 `loader` 来处理 `<Home/>` 类型的文件。让我们来看看module把。
 
 ### module
-经过 `babel` 环境配置后，我们还需要引入 `babel-loader` 来解析我们的模块，
+经过 `babel` 环境配置后，发现打包并不能成功，因为 webpack 要对模块进行处理。</br>
+对比 Node.js 模块，webpack 模块能够以各种方式表达它们的依赖关系，几个例子如下：
+* ES2015 import 语句
+* CommonJS require() 语句
+* AMD define 和 require 语句
+* css/sass/less 文件中的 @import 语句。
+* 样式(url(...))或 HTML 文件(`<img src=...>`)中的图片链接(image url)
+
+webpack 通过 loader 可以支持各种语言和预处理器编写模块。loader 描述了 webpack 如何处理 非 JavaScript(non-JavaScript) _模块_，并且在 bundle 中引入这些依赖。 webpack 社区已经为各种流行语言和语言处理器构建了 loader，包括：
+
+* CoffeeScript
+* TypeScript
+* Less
+* Sass
+
+
+好了，现在我们引入 `babel-loader` 来处理js。
 
       npm install babel-loader --save-dev
 
@@ -259,9 +275,9 @@ ReactDOM.render(
 +              exclude: /(node_modules)/, // 排除要匹配的文件夹，提高构建速度
 +              use: {
 +                loader: 'babel-loader',
-+                options: {   // 没有 babel.config.js 文件，在这里也可以进行配置
++                options: {   
 +                    cacheDirectory: true,               // 开启缓存 提高构建速度
-+                    // presets: ['@babel/preset-env'],
++                    // presets: ['@babel/preset-env'],  // 没有 babel.config.js 文件，在这里也可以进行配置
 +                    // plugins:[]
 +                }
 +              }
@@ -271,10 +287,55 @@ ReactDOM.render(
 
 ```
 这个时候执行打包命令就可以成功了。</br>
+下面引入 `css-loader` 和 `style-loader` 来处理我们的css文件。[css-loader详情](https://www.webpackjs.com/loaders/css-loader/)，[style-loader详情](https://www.webpackjs.com/loaders/css-loader/)。
 
-此时的文件目录文:
-
-![](https://github.com/yumi41/webpack4.x/blob/dev/images/Home.js.jpg)</br>
+      npm install --save-dev css-loader style-loader
+然后配置 `webpack.config.js` :
+```diff
+    module: {
+        rules: [
+            {
+              test: /\.js$/,             // 匹配文件规则
+              exclude: /(node_modules)/, // 排除要匹配的文件夹，提高构建速度
+              use: {
+                loader: 'babel-loader',
+                options: {   // 没有 babel.config.js 文件，在这里也可以进行配置
+                    cacheDirectory: true,               // 开启缓存 提高构建速度
+                    // presets: ['@babel/preset-env'],
+                    // plugins:[]
+                }
+              }
+            },
++            {
++                test: /\.css$/,
++                use: [
++                    'style-loader',
++                    'css-loader',
++                ],
++            },
+```
+接下来创建 `Home.css` 文件，在 `Home.js` 中引入:</br>
+Home.css:
+```
+.test{
+    color: red
+}
+```
+Home.js:
+```diff
+import React from 'react';
++ import './Home.css'
+class Home extends React.Component {
+    render(){
+        return (
+-            <div>Hello, world!!!</div>
++            <div className="test">Hello, world!!!</div>
+        )
+    }
+}
+export default Home;
+```
+再次打包并且打开 `index.html` 文件，发现字体变成红色了。
 
 
 
