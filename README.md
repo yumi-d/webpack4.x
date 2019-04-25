@@ -50,7 +50,7 @@
   },
 ```
 当然也可以指定webpack要读取的配置文件，比如: `webpack --config webpack.config2.js` 。</br>
-现在依次创建 `index.html` ， `index.js` ， `webpack.config.js`
+现在依次创建 `index.html` ， `src/index.js` ， `webpack.config.js`
 
 index.html
 ```
@@ -65,7 +65,7 @@ index.html
   </body>
 </html>
 ```
-index.js
+src/index.js
 ```
 function component() {
   var element = document.createElement('div');
