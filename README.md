@@ -154,13 +154,13 @@ module.exports = function (api) {
       npm install --save-dev babel-preset-stage-2
       npm install --save-dev babel-preset-stage-3
       
-不稳定性和包涵关系: stage-0 > stage-1 > stage-2 > stage-3。由于提案是不断变化的，所以 `babel7.x` 后移除了 `babel-preset-stage-X` ，改为引入plugins， ![babel7升级不完全指南](https://github.com/chenxiaochun/blog/issues/61)。</br>
+不稳定性和包涵关系: stage-0 > stage-1 > stage-2 > stage-3。由于提案是不断变化的，所以 `babel7.x` 后移除了 `babel-preset-stage-X` ，改为引入plugins， [babel7升级不完全指南](https://github.com/chenxiaochun/blog/issues/61)。</br>
 
 我们选择最稳定的 `stage-3` ：
 
       npm install --save-dev @babel/plugin-syntax-dynamic-import @babel/plugin-syntax-import-meta @babel/plugin-proposal-class-properties @babel/plugin-proposal-json-strings
 
-当然想用哪个就引入哪个，除此之外还有 ![其他](https://github.com/babel/babel/tree/master/packages) 的插件可以引用。接着上面的安装进行配置:
+当然想用哪个就引入哪个，除此之外还有 [其他](https://github.com/babel/babel/tree/master/packages) 的插件可以引用。接着上面的安装进行配置:
 ```diff
 module.exports = function (api) {
     api.cache(true);
@@ -182,9 +182,10 @@ module.exports = function (api) {
     };
 };
 ```
-至此，环境准备的差不多了，下面我们来引入React。
+此时的目录结构为:
+![](https://github.com/yumi41/webpack4.x/blob/dev/images/babel.config.jpg)
 
-现在我们来引入React，先执行命令：
+至此，环境准备的差不多了，下面我们来引入React:
 
       npm install --save react react-dom
 
@@ -217,45 +218,10 @@ ReactDOM.render(
 
 ![](https://github.com/yumi41/webpack4.x/blob/dev/images/loader.jpg)</br>
 
-错误说明在入口文件中，需要loader来处理文件类型，这时就要请出我们的 `babel` 了。</br>
-引用 [babel](https://www.babeljs.cn/) 官网的话：
 
-      Babel 是一个 JavaScript 编译器
-这是因为新语法不能够马上被现在的浏览器全部支持，所以要用 `babel` 把我们所写的代码转换成浏览器所能识别的代码，比如:
 
-      * react语法
-      * ES6/7/8
-      * 处于提案的语法
-      * ...
-在 `babel7.x` 之前要在根目录下引入配置文件: `.babelrc`，`7.x` 后可以在项目的根目录下创建一个名为 `babel.config.js` 的文件，推荐使用后者。
 
-现在安装我们所需要的模块:
-
-      npm install --save-dev @babel/core  @babel/preset-env @babel/preset-react
-
-大概作用就是:
-
-      @babel/core:核心包，某些代码需要调用Babel的API进行转码
-      @babel/preset-env:转码规则，在此之前是要安装babel-preset-es20XX的，经常会变。现在 `@babel/preset-env` 会自动匹配最新的环境
-      @@babel/preset-react:react转码规则
-
-配置如下:
-```
-module.exports = function (api) {
-    api.cache(true);
-    const presets = [
-        "@babel/preset-react",
-        ["@babel/preset-env"],
-    ];
-    const plugins = [];
-    return {
-        presets,
-        plugins
-    };
-};
-```
 更多模块可以参考 [babel指南](https://www.babeljs.cn/docs/usage)。</br>
-更多详细信息可以参考 [阮一峰](http://www.ruanyifeng.com/blog/2016/01/babel.html)（虽然已经过时了，但是可以更好的理解现在的配置）。
 
 ### module
 经过 `babel` 环境配置后，我们还需要引入 `babel-loader` 来解析我们的模块，
@@ -315,63 +281,9 @@ ReactDOM.render(
 
 ![](https://github.com/yumi41/webpack4.x/blob/dev/images/Home.js.jpg)</br>
 
-再次打包发现不会报错。好，ES6的class是用上了，现在我想用class的 `static` :
 
-```diff
-import React from 'react';
-class Home extends React.Component {
-+   static data = 1;
-    render(){
-        return (
-            <div>Hello, world!!!</div>
-        )
-    }
-}
-export default Home;
 
-```
-再次打包发现报错:
 
-![](https://github.com/yumi41/webpack4.x/blob/dev/images/class_static.jpg)</br>
-
-看错误是 `class` 不支持 `static` 这个属性，没关系，我们让它支持:
-
-      npm install @babel/plugin-syntax-dynamic-import @babel/plugin-syntax-import-meta @babel/plugin-proposal-class-properties @babel/plugin-proposal-json-strings --save-dev
-
-如果只是支持 `static` 的话 可以只安装 `@babel/plugin-proposal-class-properties` 就可以了，然后要配置 `babel.config.js` :
-
-```diff
-module.exports = function (api) {
-    api.cache(true);
-    const presets = [
-        "@babel/preset-react",
-        ["@babel/preset-env"],  
-    ];
-+    // es7不同阶段语法提案的转码规则模块（共有4个阶段），分别是stage-0，stage-1，stage-2，stage-3。
-+    // babel 7 以后删除了 stage-0，stage-1，stage-2，stage-3，改用plugins，以下兼容老版本stage-3
-+    const stage_3 = [
-+        "@babel/plugin-syntax-dynamic-import",
-+        "@babel/plugin-syntax-import-meta",
-+        ["@babel/plugin-proposal-class-properties", {"loose": false}], 
-+        "@babel/plugin-proposal-json-strings",
-+    ];
-    const plugins = [
-+        ...stage_3,
-+       "@babel/plugin-transform-runtime", // 支持 async await （还需要 npm install --save @babel/runtime）
-    ];
-    return {
-        presets,
-        plugins 
-    };
-};
-```
-
-顺便也把 `async await` 的插件也装上了，真的是想用啥就装啥。其实以前只装一个 `stage-X` 就好了，网上找资料发现:
-
-      1、`stage-X` 并不知道里面有什么，改用插件一目了然。
-      2、`stage-X` 里的规则进入到规范里面，则整个 stage-X 都会有变动。
-      
-好了，说了这么多题外话，还是回到模块上来吧，
 
       
       
