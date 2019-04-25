@@ -190,7 +190,7 @@ module.exports = function (api) {
 
       npm install --save react react-dom
       
-然后在 `src` 创建新文件夹 `page`， 然后在 `page` 中创建 `Home.jsx` 文件，内容如下:
+然后在 `src` 创建新文件夹 `page`， 然后在 `page` 中创建 `Home.js` 文件，内容如下:
 ```
 import React from 'react';
 class Home extends React.Component {
@@ -236,10 +236,7 @@ ReactDOM.render(
 
 ![](https://github.com/yumi41/webpack4.x/blob/dev/images/loader.jpg)</br>
 
-
-
-
-更多模块可以参考 [babel指南](https://www.babeljs.cn/docs/usage)。</br>
+看错误是需要 `loader` 来处理 `<Home/>` 类型的文件。
 
 ### module
 经过 `babel` 环境配置后，我们还需要引入 `babel-loader` 来解析我们的模块，
@@ -248,53 +245,33 @@ ReactDOM.render(
 
 再配置 `webpack.config.js` :
 
-```
-module: {
-        rules: [
-            {
-              test: /\.js$/,             // 匹配文件规则
-              exclude: /(node_modules)/, // 排除要匹配的文件夹，提高构建速度
-              use: {
-                loader: 'babel-loader',
-                options: {   // 没有 babel.config.js 文件，在这里也可以进行环境配置
-                    cacheDirectory: true,               // 开启缓存 提高构建速度
-                    // presets: ['@babel/preset-env'],
-                    // plugins:[]
-                }
-              }
-            }
-          ]
+```diff
+    output: {
+        // 决定了每个输出 bundle 的名称。这些 bundle 将写入到 output.path 选项指定的目录下。
+        // 也可以使用入口名称（[name].bundle.js）、内部 chunk id（[id].bundle.js）等命名
+        filename: 'main.js',    // 打包后文件的名字
+        path: path.resolve(__dirname, 'dist'),  // 目标输出目录的绝对路径。
     },
++    module: {
++        rules: [
++            {
++              test: /\.js$/,             // 匹配文件规则
++              exclude: /(node_modules)/, // 排除要匹配的文件夹，提高构建速度
++              use: {
++                loader: 'babel-loader',
++                options: {   // 没有 babel.config.js 文件，在这里也可以进行配置
++                    cacheDirectory: true,               // 开启缓存 提高构建速度
++                    // presets: ['@babel/preset-env'],
++                    // plugins:[]
++                }
++              }
++            }
++          ]
++    },
 
 ```
 这个时候执行打包命令就可以成功了。</br>
 
-好了，现在让我们来扩大先有的项目，并且用更方便的ES6语法。
-首先在src目录下创建page文件夹，并且创建 `Home.js` 文件：
-
-```
-import React from 'react';
-class Home extends React.Component {
-    render(){
-        return (
-            <div>Hello, world!!!</div>
-        )
-    }
-}
-export default Home;
-```
-修改 `src/index.js` :
-
-```diff
-import React from 'react';
-import ReactDOM from 'react-dom';
-+ import Home from './page/Home'
-
-ReactDOM.render(
-  <Home/>,
-  document.getElementById('app')
-);
-```
 此时的文件目录文:
 
 ![](https://github.com/yumi41/webpack4.x/blob/dev/images/Home.js.jpg)</br>
