@@ -287,7 +287,7 @@ webpack 通过 loader 可以支持各种语言和预处理器编写模块。load
 
 ```
 这个时候执行打包命令就可以成功了。</br>
-下面引入 `css-loader` 和 `style-loader` 来处理我们的css文件。[css-loader详情](https://www.webpackjs.com/loaders/css-loader/)，[style-loader详情](https://www.webpackjs.com/loaders/css-loader/)。
+下面引入 `css-loader` 和 `style-loader` 来处理我们的css文件。[css-loader详情](https://www.webpackjs.com/loaders/css-loader/)，[style-loader详情](https://www.webpackjs.com/loaders/style-loader/)。
 
       npm install --save-dev css-loader style-loader
 然后配置 `webpack.config.js` :
