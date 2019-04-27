@@ -95,7 +95,7 @@ module.exports = {
     }
 };
 ```
-本地开发输出中的 `filename` 可以成固定值，长效缓存时再使用其他值。还有比较重要的 `chunkFilename` 和 [publicPath](#说说publicPath) 后面再介绍。</br>
+本地开发输出中的 `filename` 可以成固定值，长效缓存时再使用其他值。还有比较重要的 [publicPath](#说说publicPath) 和 `chunkFilename` 后面再介绍。</br>
 现在的目录结构如下:
 
 ![](https://github.com/yumi41/webpack4.x/blob/dev/images/input_output.jpg)</br>
@@ -296,9 +296,12 @@ todo 解析规则。
 
 #### css/style-loader
 
-为了处理css文件，我们要引入 `css-loader` 和 `style-loader` 。[css-loader详情](https://www.webpackjs.com/loaders/css-loader/)，[style-loader详情](https://www.webpackjs.com/loaders/style-loader/)。
+为了处理css文件，我们要引入 [css-loader](https://www.webpackjs.com/loaders/css-loader/) 和 [style-loader](https://www.webpackjs.com/loaders/style-loader/) 。
 
       npm install --save-dev css-loader style-loader
+`css-loader` 用于处理css文件;<br/>
+`style-loader` 一般和 css-loader 一起使用，用于把css注入到html的<style>标签中，建议本地开发使用（因为支持热重载（link跳转））；如果想把css剥离成文件，webpack4之前使用 [extract-text-webpack-plugin](https://www.webpackjs.com/plugins/extract-text-webpack-plugin/)，之后可以使用插件 [mini-css-extract-plugin](https://webpack.js.org/plugins/mini-css-extract-plugin) (webpack5.x 可能会内置类似的插件)
+      
 然后配置 `webpack.config.js` :
 ```diff
     module: {
@@ -323,6 +326,7 @@ todo 解析规则。
 +                ],
 +            },
 ```
+上面讲到use配置规则
 接下来创建 `Home.css` 文件，在 `Home.js` 中引入:</br>
 Home.css:
 ```
