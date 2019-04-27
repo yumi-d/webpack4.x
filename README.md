@@ -299,8 +299,8 @@ todo 解析规则。
 为了处理css文件，我们要引入 [css-loader](https://www.webpackjs.com/loaders/css-loader/) 和 [style-loader](https://www.webpackjs.com/loaders/style-loader/) 。
 
       npm install --save-dev css-loader style-loader
-`css-loader` 用于处理css文件;<br/>
-`style-loader` 一般和 css-loader 一起使用，用于把css注入到html的<style>标签中，建议本地开发使用（因为支持热重载（link跳转））；如果想把css剥离成文件，webpack4之前使用 [extract-text-webpack-plugin](https://www.webpackjs.com/plugins/extract-text-webpack-plugin/)，之后可以使用插件 [mini-css-extract-plugin](https://webpack.js.org/plugins/mini-css-extract-plugin) (webpack5.x 可能会内置类似的插件)
+> `css-loader` 用于处理css文件;<br/>
+> `style-loader` 一般和 css-loader 一起使用，用于把css注入到html的<style>标签中,但是会导致html文件变大，建议开发环境使用，生产请对css进行拆分, [后面说明](#other)
       
 然后配置 `webpack.config.js` :
 ```diff
@@ -392,6 +392,9 @@ export default Home;
       
 
 
+
+### other
+建议本地开发使用（因为支持热重载（link跳转））；如果想把css剥离成文件，webpack4之前使用 [extract-text-webpack-plugin](https://www.webpackjs.com/plugins/extract-text-webpack-plugin/)，之后可以使用插件 [mini-css-extract-plugin](https://webpack.js.org/plugins/mini-css-extract-plugin) (webpack5.x 可能会内置类似的插件)
 
       
       
