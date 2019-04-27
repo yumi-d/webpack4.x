@@ -1,4 +1,4 @@
-# webpack4.x详细配置
+# webpack4.x常用配置
 ## 目录
 * [前言](#前言)
 * [概念](#概念)
@@ -9,7 +9,7 @@
 
 
 ### 前言
-从webpack1.x用到webpack4.x，却从来没有去系统的总结一下详细配置，所有就写个文章总结一下，也给初学者一个引导。本文所有内容均来自[webpack官网](https://www.webpackjs.com/)
+从webpack1.x用到webpack4.x，却从来没有去系统的总结一下详细配置，所有就有了这篇文章。本文由浅到深，有些配置放在后面才说，还请见谅。本文主要内容来自 [webpack官网](https://www.webpackjs.com/)
 
 
 ### 概念
