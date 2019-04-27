@@ -17,22 +17,56 @@ module.exports = {
         // 也可以使用入口名称（[name].bundle.js）、内部 chunk id（[id].bundle.js）等命名
         filename: 'main.js',    // 打包后文件的名字
         path: path.resolve(__dirname, 'dist'),  // 目标输出目录的绝对路径。
+        // publicPath: './dist/',
     },
     module: {
         rules: [
             {
-              test: /\.js$/,             // 匹配文件规则
-              exclude: /(node_modules)/, // 排除要匹配的文件夹，提高构建速度
-              use: {
-                loader: 'babel-loader',
-                options: {   // 没有 babel.config.js 文件，在这里也可以进行配置
-                    cacheDirectory: true,               // 开启缓存 提高构建速度
-                    // presets: ['@babel/preset-env'],
-                    // plugins:[]
+                test: /\.js$/,             // 匹配文件规则
+                exclude: /(node_modules)/, // 排除要匹配的文件夹，提高构建速度
+                use: {
+                    loader: 'babel-loader',
+                    options: {   // 没有 babel.config.js 文件，在这里也可以进行配置
+                        cacheDirectory: true,               // 开启缓存 提高构建速度
+                        // presets: ['@babel/preset-env'],
+                        // plugins:[]
+                    }
                 }
-              }
-            }
-          ]
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    'style-loader',
+                    'css-loader',
+                ],
+            },
+            {
+                test: /\.(png|svg|jpg|gif)$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: 'images/[name].[ext]',
+                        }
+                    }
+                ]
+            },
+
+            // {
+            //     test: /\.(png|svg|jpg|gif)$/,
+            //     use: [
+            //         {
+            //             loader: 'url-loader',
+            //             options: {
+            //                 limit: 7000,             // 1000 = 1k
+            //                 name: 'url/[name].[hash:8].[ext]',
+            //                 // name: '[name].[ext]',
+            //                 // publicPath: './dist'
+            //             }
+            //         }
+            //     ]
+            // },
+        ]
     },
 
 
