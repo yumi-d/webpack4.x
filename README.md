@@ -15,10 +15,11 @@
 ### 概念
 首先开局一张图~
 ![](https://github.com/yumi41/webpack4.x/blob/dev/images/webpack_logo.jpg)
-意思就是把左边的资源、脚本、图片、样式表打包成右边我们需要的静态资源，而不用关心中间一些复杂的操作。
+意思就帮我们处理资源，是把左边的资源、脚本、图片、样式表打包成右边我们需要的静态资源，而不用关心中间一些复杂的操作。
 </br>
 比如:
 
+    * 模块管理
     * 代码分割、去除多余模块。
     * 代码、图片压缩。
     * Scss，less等CSS预处理器
@@ -92,7 +93,7 @@ module.exports = {
     }
 };
 ```
-本地开发输出中的 `filename` 可以成固定值，长效缓存时再使用其他值。还有比较重要的 `chunkFilename` `publicPath` 后面再介绍。</br>
+本地开发输出中的 `filename` 可以成固定值，长效缓存时再使用其他值。还有比较重要的 `chunkFilename` 和 `publicPath` 后面再介绍。</br>
 现在的目录结构如下:
 
 ![](https://github.com/yumi41/webpack4.x/blob/dev/images/input_output.jpg)</br>
