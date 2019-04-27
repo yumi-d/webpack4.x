@@ -45,14 +45,15 @@
 推荐使用 `npm install --save-dev webpack` 安装，如果你有多个项目的话，可能会有多个webpack版本，全局安装webpack可能会影响其他项目。</br>
 
 ### 输入和输出
-现在在 `package.json` 中添加 `"build": "webpack"`
+现在在 `package.json` 中添加 `"build": "webpack"` （默认读取项目根目录的 `webpack.config.js` 文件）
 ```
   "scripts": {
     "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
 ```
-当然也可以指定webpack要读取的配置文件，比如: `webpack --config webpack.config2.js` 。</br>
+> 指定读取：`"build": "webpack --config webpack.config2.js"`, or `"build": "webpack --config xxx/xxx/webpack.config2.js"`
+
 现在依次创建 `index.html` ， `src/index.js` ， `webpack.config.js`
 
 index.html
