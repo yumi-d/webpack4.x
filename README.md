@@ -52,7 +52,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
 ```
-> 指定读取：`"build": "webpack --config webpack.config2.js"`, or `"build": "webpack --config xxx/xxx/webpack.config2.js"`
+> 指定读取：`"build": "webpack --config xx/xxx.js"`
 
 现在依次创建 `index.html` ， `src/index.js` ， `webpack.config.js`
 
