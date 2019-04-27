@@ -6,7 +6,11 @@
 * [输入和输出](#输入和输出)
 * [babel简介](#babel简介)
 * [module](#module)
-
+   * [babel-loader](#babel-loader)
+   * [css/style-loader](#css/style-loader)
+   * [file-loader](#file-loader)
+      * [说说publicPath](#说说publicPath)
+      * [url-loader](#url-loader)
 
 ### 前言
 从webpack1.x用到webpack4.x，却从来没有去系统的总结一下详细配置，所有就有了这篇文章。本文由浅到深，有些配置放在后面才说，还请见谅。本文主要内容来自 [webpack官网](https://www.webpackjs.com/)
@@ -91,7 +95,7 @@ module.exports = {
     }
 };
 ```
-本地开发输出中的 `filename` 可以成固定值，长效缓存时再使用其他值。还有比较重要的 `chunkFilename` 和 `publicPath` 后面再介绍。</br>
+本地开发输出中的 `filename` 可以成固定值，长效缓存时再使用其他值。还有比较重要的 `chunkFilename` 和 [publicPath](#说说publicPath) 后面再介绍。</br>
 现在的目录结构如下:
 
 ![](https://github.com/yumi41/webpack4.x/blob/dev/images/input_output.jpg)</br>
@@ -253,6 +257,9 @@ webpack 通过 loader 可以支持各种语言和预处理器编写模块。load
 * Less
 * Sass
 
+todo 解析规则。
+
+#### babel-loader
 
 好了，现在我们引入 `babel-loader` 来处理js。
 
@@ -286,7 +293,10 @@ webpack 通过 loader 可以支持各种语言和预处理器编写模块。load
 
 ```
 这个时候执行打包命令就可以成功了。</br>
-下面引入 `css-loader` 和 `style-loader` 来处理我们的css文件。[css-loader详情](https://www.webpackjs.com/loaders/css-loader/)，[style-loader详情](https://www.webpackjs.com/loaders/style-loader/)。
+
+#### css/style-loader
+
+为了处理css文件，我们要引入 `css-loader` 和 `style-loader` 。[css-loader详情](https://www.webpackjs.com/loaders/css-loader/)，[style-loader详情](https://www.webpackjs.com/loaders/style-loader/)。
 
       npm install --save-dev css-loader style-loader
 然后配置 `webpack.config.js` :
@@ -336,7 +346,46 @@ export default Home;
 ```
 再次打包并且打开 `index.html` 文件，发现字体变成红色了。
 
+#### file-loader
 
+为了处理图片，我们安装 `file-loader` 和 `url-loader`:
+
+      npm install --save-dev file-loader url-loader
+
+`file-loader` 大概作用就是处理文件对象并返回真实的文件路径，默认情况下，生成的文件的文件名就是文件内容的 MD5 哈希值并会保留所引用资源的原始扩展名。引用官网的 [例子](https://www.webpackjs.com/loaders/file-loader/):
+
+      import img from './file.png' 
+
+将会生成文件 file.png，输出到输出目录并返回 public URL。
+      
+      "/public/path/0dcbbaa7013869e351f.png"
+      
+现在修改 `webpack.config.js` ，[更多选项](https://www.webpackjs.com/loaders/file-loader/):
+```diff
+            {
+                test: /\.css$/,
+                use: [
+                    'style-loader',
+                    'css-loader',
+                ],
+            },
++            {
++                test: /\.(png|svg|jpg|gif)$/,
++                use: [
++                    {
++                        loader: 'file-loader',
++                        options: {
++                            name: 'images/[name].[ext]', // 指定文件夹和文件名生成规则
++                        }
++                    }
++                ]
++            },
+```
+
+#### 说说publicPath
+
+`url-loader` 功能类似于 `file-loader`，但是在文件大小（单位 byte）低于指定的限制时，可以返回一个 DataURL。
+      
 
 
 
