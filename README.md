@@ -300,6 +300,7 @@ todo 解析规则。
 
       npm install --save-dev css-loader style-loader
 > `css-loader` 用于处理css文件;<br/>
+
 > `style-loader` 一般和 css-loader 一起使用，用于把css注入到html的<style>标签中,但是会导致html文件变大，建议开发环境使用，生产请对css进行拆分, [后面说明](#other)
       
 然后配置 `webpack.config.js` :
