@@ -57,7 +57,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
 ```
-> 指定读取：`"build": "webpack --config xx/xxx.js"`
+> 指定读取配置文件：`"build": "webpack --config xx/xxx.js"`
 
 现在依次创建 `index.html` ， `src/index.js` ， `webpack.config.js`
 
@@ -101,7 +101,7 @@ module.exports = {
     }
 };
 ```
-本地开发输出中的 `filename` 可以成固定值，长效缓存时再使用其他值。还有比较重要的 [publicPath](#说说publicPath) 和 `chunkFilename` 后面再介绍。</br>
+本地开发输出中的 `filename` 可以成固定值，也可以根据文件名称或其他规则来生成。还有比较重要的 [publicPath](#说说publicPath) 和[chunkFilename](#说说chunkFilename) 后面再介绍。</br>
 现在的目录结构如下:
 
 ![](https://github.com/yumi41/webpack4.x/blob/dev/images/input_output.jpg)</br>
@@ -121,7 +121,7 @@ module.exports = {
         main: './src/index.js'
     },
 ```
-打开index.html就可以看到效果了。
+打包后会通过webpack.config.js的输出路径，在跟目录下生成dist文件夹，打开index.html就可以看到效果了。
       
 babel简介
 ------
