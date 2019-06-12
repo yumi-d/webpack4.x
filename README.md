@@ -44,7 +44,8 @@
       npm install --save-dev webpack-cli  
 推荐使用 `npm install --save-dev webpack` 安装，如果你有多个项目的话，可能会有多个webpack版本，全局安装webpack可能会影响其他项目。</br>
 
-### 输入和输出
+输入和输出
+------
 现在在 `package.json` 中添加 `"build": "webpack"` （默认读取项目根目录的 `webpack.config.js` 文件）
 ```
   "scripts": {
