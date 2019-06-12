@@ -1,3 +1,4 @@
+
 # webpack4.x常用配置
 ## 目录
 * [前言](#前言)
@@ -12,11 +13,13 @@
       * [说说publicPath](#说说publicPath)
       * [url-loader](#url-loader)
 
-### 前言
+前言
+------
 从webpack1.x用到webpack4.x，却从来没有去系统的总结一下详细配置，所有就有了这篇文章。本文由浅到深，有些配置放在后面才说，还请见谅。本文主要内容来自 [webpack官网](https://www.webpackjs.com/)
 
 
-### 概念
+概念
+------
 首先开局一张图~
 ![](https://github.com/yumi41/webpack4.x/blob/dev/images/webpack_logo.jpg)
 大概意思就帮我们处理资源，是把左边的资源、脚本、图片、样式表打包成右边我们需要的静态资源，而不用关心中间一些复杂的操作。比如:
@@ -31,7 +34,8 @@
     
     本质上，webpack 是一个现代 JavaScript 应用程序的静态模块打包器(module bundler)。当 webpack 处理应用程序时，它会递归地构建一个依赖关系图(dependency graph)，其中包含应用程序需要的每个模块，然后将所有这些模块打包成一个或多个 bundle。
     
-### 安装
+安装
+------
 首先初始化项目:
       
       npm init
@@ -119,7 +123,8 @@ module.exports = {
 ```
 打开index.html就可以看到效果了。
       
-### babel简介
+babel简介
+------
 Babel 是一个 JavaScript 编译器，主要用于将 ECMAScript 2015+ 版本的代码转换为向后兼容的 JavaScript 语法，以便能够运行在当前和旧版本的浏览器或其他环境中。大概的作用就是:
       
       * 语法转换
@@ -243,7 +248,8 @@ ReactDOM.render(
 
 看错误是需要 `loader` 来处理 `<Home/>` 类型的文件。让我们来看看module把。
 
-### module
+module
+------
 经过 `babel` 环境配置后，发现打包并不能成功，因为 webpack 要对模块进行处理。</br>
 对比 Node.js 模块，webpack 模块能够以各种方式表达它们的依赖关系，几个例子如下：
 * ES2015 import 语句
