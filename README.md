@@ -121,7 +121,7 @@ module.exports = {
         main: './src/index.js'
     },
 ```
-打包后会通过webpack.config.js的输出路径，在跟目录下生成dist文件夹，打开index.html就可以看到效果了。
+打包后会通过webpack.config.js的输出路径，在跟目录下生成dist文件夹，打开index.html就可以看到打包后的效果。
       
 babel简介
 ------
@@ -265,7 +265,7 @@ webpack 通过 loader 可以支持各种语言和预处理器编写模块。load
 * Less
 * Sass
 
-todo 解析规则。
+有关完整列表，请参考 [loader](https://www.webpackjs.com/loaders/) 列表
 
 #### babel-loader
 
@@ -309,7 +309,7 @@ todo 解析规则。
       npm install --save-dev css-loader style-loader
 > `css-loader` 用于处理css文件;<br/>
 
-> `style-loader` 一般和 css-loader 一起使用，用于把css注入到html的<style>标签中,但是会导致html文件变大，建议开发环境使用，生产请对css进行拆分, [后面说明](#other)
+> `style-loader` 一般和 css-loader 一起使用，用于把css注入到html的<style>标签中,但是会导致html文件变大，建议开发环境使用，生产请对css进行 [拆分](#other)
       
 然后配置 `webpack.config.js` :
 ```diff
@@ -335,7 +335,6 @@ todo 解析规则。
 +                ],
 +            },
 ```
-上面讲到use配置规则
 接下来创建 `Home.css` 文件，在 `Home.js` 中引入:</br>
 Home.css:
 ```
@@ -373,7 +372,7 @@ export default Home;
       
       "/public/path/0dcbbaa7013869e351f.png"
       
-现在修改 `webpack.config.js` ，[更多选项](https://www.webpackjs.com/loaders/file-loader/):
+现在修改 `webpack.config.js`:
 ```diff
             {
                 test: /\.css$/,
